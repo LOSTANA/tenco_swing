@@ -1,4 +1,4 @@
-package bubble.test.ex03;
+package bubble.test.ex04;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 
 public class BubbleFrame extends JFrame {
 	
@@ -23,7 +22,7 @@ public class BubbleFrame extends JFrame {
 		// Player 백그라운드 서비스 시작
 		new Thread(new BackgroundPlayerService(player)).start();
 	}
-
+	
 	private void initData() {
 		// todo 이미지 변경 
 		backgroundMap = new JLabel(new ImageIcon("img/backgroundMapService.png"));
@@ -56,10 +55,15 @@ public class BubbleFrame extends JFrame {
 				
 				switch(e.getKeyCode()) {
 				case KeyEvent.VK_LEFT :
-					player.left();
-					break;
+					if(!player.isLeft() && !player.isLeftWallCrash()) {
+                        player.left();
+                    }
+                    // 왼쪽 벽에 충돌한 게 아니라면,?
+                    break;
 				case KeyEvent.VK_RIGHT : 
-					player.right();
+					if(!player.isRight() && !player.isRightWallCrash()) {
+                        player.right();
+                    }
 					break;
 				case KeyEvent.VK_UP :
 					player.up();
