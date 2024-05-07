@@ -1,15 +1,16 @@
-package bubble.test.ex07;
+package bubble.test.ex09;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Player extends JLabel implements Moveable {
 
+	BubbleFrame mContext;
+
 	private int x;
 	private int y;
 	private ImageIcon playerR, playerL;
 
-	private Bubble bubble = new Bubble(this);
 
 	// 움직임의 상태
 	private boolean left;
@@ -30,6 +31,13 @@ public class Player extends JLabel implements Moveable {
 	PlayerWay playerWay;
 
 	// setter
+
+	public Player(BubbleFrame mContext) {
+		this.mContext = mContext;
+		initData();
+		setInitLayout();
+	}
+
 	public void setLeft(boolean left) {
 		this.left = left;
 	}
@@ -126,11 +134,6 @@ public class Player extends JLabel implements Moveable {
 		this.attack = attack;
 	}
 
-	public Player() {
-		initData();
-		setInitLayout();
-
-	}
 
 	private void initData() {
 		playerR = new ImageIcon("img/playerR.png");
@@ -258,4 +261,23 @@ public class Player extends JLabel implements Moveable {
 
 	}
 
+	public void attack() {
+
+		// 일 작업자에게 위임 처리
+		// 람다 표현식 --> 말 그대로 표현식, 타입 추론가능(자바 한정)
+		new Thread(() -> {
+			Bubble bubble = new Bubble(mContext);
+			// mContext 통해서 (JFrame의 메서드를 호출 할 수 있다
+			mContext.add(bubble);
+			if (playerWay == PlayerWay.LEFT) {
+				// 버블을 왼쪽으로 쏘기
+				bubble.left();
+				setLocation(bubble.getX(), bubble.getY());
+			} else { // 버블을 오른쪽으로 쏘기
+				bubble.right();
+				setLocation(x, y);
+			}
+
+		}).start();
+	}
 }

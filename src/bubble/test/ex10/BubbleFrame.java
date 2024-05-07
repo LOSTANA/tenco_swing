@@ -1,4 +1,4 @@
-package bubble;
+package bubble.test.ex10;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -6,9 +6,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-import bubble.components.Enemy;
-import bubble.components.Player;
 
 public class BubbleFrame extends JFrame {
 
@@ -54,7 +51,6 @@ public class BubbleFrame extends JFrame {
 
 		add(player);
 		add(enemy1);
-		
 	}
 
 	private void addEventListener() {
@@ -114,7 +110,6 @@ public class BubbleFrame extends JFrame {
 	public Enemy getEnemy() {
 		return enemy1;
 	}
-
 
 	public static void main(String[] args) {
 		// main함수를 가지고 있는 클래스는 하위에 생성된 모든 객체들의 주소값을 알고 있다(매우 중요!)
